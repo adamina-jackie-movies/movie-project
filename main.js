@@ -39,9 +39,50 @@ $(document).ready(function () {
 				.then((parsedMovies) => {
 					console.log(parsedMovies)
 					
-					// iterate through parsedMovies to create card deck for recommended movies section
-					let title = parsedMovies[i].Title
-					console.log(title)
+
+
+					// recommendedMovie for loop
+					var card = '';
+					for(var i = 0; i < parsedMovies.length; i++) {
+						// iterate through parsedMovies to create card deck for recommended movies section
+						let title = parsedMovies[i].Title
+						let director = parsedMovies[i].Director
+						let rated = parsedMovies[i].Rated
+						let releasedYear = parsedMovies[i].Year
+						let moviePoster = parsedMovies[i].Poster
+
+						card += `
+							<div class="card-deck">
+								<div class="card m-5 bg-dark text-white">
+								<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
+								<div class="card-body">
+									<ul class="list-unstyled pl-0">
+									<li>
+										<p class="card-text">
+											${title}
+										</p>
+									</li>
+									<li>
+									
+									</li>
+									<li></li>
+									<li></li>
+									
+									
+									</ul>
+										
+									
+								</div>
+								</div>
+								</div>
+							
+						
+						
+						`
+					}
+$('.recommendedMovies').html(card)
+
+
 				})
 		}, 1500)
 		
