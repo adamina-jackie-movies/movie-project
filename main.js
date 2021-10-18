@@ -33,7 +33,12 @@ $(document).ready(function () {
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
 				})
-			
+
+
+
+			// API request for recommended movie section
+
+
 			Promise.all([interstellarData, adamsFamilyData, duneData, jokerData, halloweenKillsData])
 				.then((responses) => Promise.all(responses.map((response) => response.json())))
 				.then((parsedMovies) => {
@@ -41,10 +46,11 @@ $(document).ready(function () {
 					
 
 
-					// recommendedMovie for loop
+			// recommendedMovie for loop
 					var card = '';
 					for(var i = 0; i < parsedMovies.length; i++) {
 						// iterate through parsedMovies to create card deck for recommended movies section
+						let imdbRating = parsedMovies[i].imdbRating
 						let title = parsedMovies[i].Title
 						let director = parsedMovies[i].Director
 						let rated = parsedMovies[i].Rated
@@ -58,17 +64,31 @@ $(document).ready(function () {
 								<div class="card-body">
 									<ul class="list-unstyled pl-0">
 									<li>
-										<p class="card-text">
-											${title}
+										<p class="card-text d-flex align-items-center justify-content-start">
+											<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${imdbRating}
 										</p>
 									</li>
 									<li>
-									
+										<p class="card-text" style="font-weight: bold">
+											${title}
+										</p>
 									</li>
-									<li></li>
-									<li></li>
-									
-									
+										
+									<li>
+										<p class="card-text">
+											Rated: ${rated}
+										</p>
+									</li>
+									<li>
+										<p class="card-text">
+											Directed by: ${director}
+										</p>
+									</li>
+									<li>
+										<p class="card-text">
+											Year Realeased: ${releasedYear}
+										</p>
+									</li>
 									</ul>
 										
 									
@@ -81,6 +101,9 @@ $(document).ready(function () {
 						`
 					}
 $('.recommendedMovies').html(card)
+
+
+
 
 
 				})
