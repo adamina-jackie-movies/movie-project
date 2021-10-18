@@ -32,3 +32,19 @@ body {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
 }
+
+/*Modal Form for adding movies*/
+#add-movie-button {
+	margin-top: 1rem;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 600;
+	font-size: 25px;
+	/*width: 393.125px;*/
+
+}
+
+#add-movie-img {
+	/*padding: 5px;*/
+	border: 1px solid white;
+	border-radius: 1%;
+}

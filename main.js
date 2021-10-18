@@ -1,13 +1,17 @@
 const omdbKey = 'e2480ab6'
 
 const getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
-
+$('#myModal').on('shown.bs.modal', function () {
+	$('#myInput').trigger('focus')
+})
 
 // fetch('http://www.omdbapi.com/?i=tt3896198&apikey=e2480ab6')
 // 	.then((response) => response.json())
 // 	.then((jsonData) => console.log(jsonData))
 
 $(document).ready(function () {
+	$('#add-movie-img').css('visibility', 'hidden')
+	$('#add-movie-button').css('visibility', 'hidden')
 	$('#enter').click(function (event) {
 		event.preventDefault();
 		$('body').css('background-image', 'none') // removing landing page content after click event
@@ -21,10 +25,11 @@ $(document).ready(function () {
 				.then((movies) => {
 					$('#loading').css('display', 'none') // removing "loading" animation after promise has been fulfilled
 					console.log(movies)
+					$('#add-movie-button').css('visibility', 'visible')
+					$('#add-movie-img').css('visibility', 'visible')
 				})
-			
-			$('body').html(`<h1>Movie Data Will Go Here</h1>`).css('text-align', 'center').css('margin-top', '30%')
 		}, 2500)
+		
 		
 	})
 	
