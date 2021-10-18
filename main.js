@@ -8,7 +8,11 @@ const getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
 // 	.then((jsonData) => console.log(jsonData))
 
 $(document).ready(function () {
-	getGlitchMovies
-		.then((response) => response.json())
-		.then((movies) => console.log(movies))
+	$('#enter').click(function (event) {
+		event.preventDefault();
+		getGlitchMovies
+			.then((response) => response.json())
+			.then((movies) => console.log(movies))
+	})
+	
 })
