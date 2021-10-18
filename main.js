@@ -5,9 +5,14 @@ $('#myModal').on('shown.bs.modal', function () {
 	$('#myInput').trigger('focus')
 })
 
-// fetch('http://www.omdbapi.com/?i=tt3896198&apikey=e2480ab6')
-// 	.then((response) => response.json())
-// 	.then((jsonData) => console.log(jsonData))
+// Recommended movies variables
+let interstellarData = fetch('https://www.omdbapi.com/?i=tt0816692&apikey=e2480ab6')
+let adamsFamilyData = fetch('https://www.omdbapi.com/?i=tt11125620&apikey=e2480ab6')
+let duneData = fetch('https://www.omdbapi.com/?i=tt1160419&apikey=e2480ab6')
+let jokerData = fetch('https://www.omdbapi.com/?i=tt7286456&apikey=e2480ab6')
+let halloweenKillsData = fetch('https://www.omdbapi.com/?i=tt10665338&apikey=e2480ab6')
+
+
 
 $(document).ready(function () {
 	$('#add-movie-img').css('visibility', 'hidden')
@@ -28,7 +33,17 @@ $(document).ready(function () {
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
 				})
-		}, 2500)
+			
+			Promise.all([interstellarData, adamsFamilyData, duneData, jokerData, halloweenKillsData])
+				.then((responses) => Promise.all(responses.map((response) => response.json())))
+				.then((parsedMovies) => {
+					console.log(parsedMovies)
+					
+					// iterate through parsedMovies to create card deck for recommended movies section
+					let title = parsedMovies[i].Title
+					console.log(title)
+				})
+		}, 1500)
 		
 		
 	})
