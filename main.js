@@ -10,15 +10,16 @@ const getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
 $(document).ready(function () {
 	$('#enter').click(function (event) {
 		event.preventDefault();
-		$('body').css('background-image', 'none')
-		$('#enter').css('display', 'none')
-		$('#loading').css('visibility', 'visible')
+		$('body').css('background-image', 'none') // removing landing page content after click event
+		$('#enter').css('display', 'none') // removing landing page content after click event
+		$('#loading').css('visibility', 'visible') // displaying "loading" animation after click event
 		
+		// Setting a timeout hanlder for fetchAPI request to make page use the "loading" animation
 		setTimeout(function () {
 			getGlitchMovies
 				.then((response) => response.json())
 				.then((movies) => {
-					$('#loading').css('display', 'none')
+					$('#loading').css('display', 'none') // removing "loading" animation after promise has been fulfilled
 					console.log(movies)
 				})
 			
