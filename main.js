@@ -100,7 +100,23 @@ $(document).ready(function () {
 						
 						`
 					}
-$('.recommendedMovies').html(card)
+					$('.recommendedMovies').html(card)
+
+
+					//Creating add a movie click event listener
+					$('#submit-movie-button').click(function(event){
+						event.preventDefault();
+
+					var userMovie = $('#movie-title').val()
+
+					//Taking users input for movie search
+						fetch(`https://www.omdbapi.com/?t=${userMovie}/&apikey=e2480ab6`)
+							.then((response)=> console.log(response.json()))
+							.then((addedMovie)=> {
+								console.log(addedMovie);
+							})
+
+					})
 
 
 
