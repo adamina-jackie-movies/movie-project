@@ -10,9 +10,21 @@ const getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
 $(document).ready(function () {
 	$('#enter').click(function (event) {
 		event.preventDefault();
-		getGlitchMovies
-			.then((response) => response.json())
-			.then((movies) => console.log(movies))
+		$('body').css('background-image', 'none')
+		$('#enter').css('display', 'none')
+		$('#loading').css('visibility', 'visible')
+		
+		setTimeout(function () {
+			getGlitchMovies
+				.then((response) => response.json())
+				.then((movies) => {
+					$('#loading').css('display', 'none')
+					console.log(movies)
+				})
+			
+			$('body').html(`<h1>Movie Data Will Go Here</h1>`).css('text-align', 'center').css('margin-top', '30%')
+		}, 2500)
+		
 	})
 	
 })
