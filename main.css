@@ -1,0 +1,14 @@
+/*Landing page css*/
+body {
+	background-image: url("/images/movieprojectbg2.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.enter-button {
+	top: 675px;
+	left: 2.4rem;
+	width: 200px;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 300;
+}
