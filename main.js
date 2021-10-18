@@ -109,11 +109,69 @@ $(document).ready(function () {
 
 					var userMovie = $('#movie-title').val()
 
+
+
+
 					//Taking users input for movie search
 						fetch(`https://www.omdbapi.com/?t=${userMovie}/&apikey=e2480ab6`)
-							.then((response)=> console.log(response.json()))
+							.then((response)=> response.json())
 							.then((addedMovie)=> {
 								console.log(addedMovie);
+								addedMovie.id = 7
+								console.log(addedMovie)
+
+								var card = ''
+								let imdbRating = addedMovie.imdbRating
+								let title = addedMovie.Title
+								let director = addedMovie.Director
+								let rated = addedMovie.Rated
+								let releasedYear = addedMovie.Year
+								let moviePoster = addedMovie.Poster
+
+								card += `
+							
+								<div class="card m-5 bg-dark text-white">
+								<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
+								<div class="card-body">
+									<ul class="list-unstyled pl-0">
+									<li>
+										<p class="card-text d-flex align-items-center justify-content-start">
+											<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${imdbRating}
+										</p>
+									</li>
+									<li>
+										<p class="card-text" style="font-weight: bold">
+											${title}
+										</p>
+									</li>
+										
+									<li>
+										<p class="card-text">
+											Rated: ${rated}
+										</p>
+									</li>
+									<li>
+										<p class="card-text">
+											Directed by: ${director}
+										</p>
+									</li>
+									<li>
+										<p class="card-text">
+											Year Realeased: ${releasedYear}
+										</p>
+									</li>
+									</ul>
+										
+									
+								</div>
+								</div>
+								
+							
+						
+						
+						`
+								$("#movieWatchlist").html(card)
+
 							})
 
 					})
