@@ -100,6 +100,8 @@ function renderNewMovies() {
 $(document).ready(function () {
 	$('#add-movie-img').css('visibility', 'hidden')
 	$('#add-movie-button').css('visibility', 'hidden')
+	$('#staff-selection-header').css('visibility', 'hidden')
+	$('#watch-list-header').css('visibility', 'hidden')
 	$('#enter').click(function (event) {
 		event.preventDefault();
 		$('body').css('background-image', 'none') // removing landing page content after click event
@@ -116,6 +118,8 @@ $(document).ready(function () {
 					console.log(movies)
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
+					$('#staff-selection-header').css('visibility', 'visible')
+					$('#watch-list-header').css('visibility', 'visible')
 					
 					
 					var card = '';
