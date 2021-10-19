@@ -12,6 +12,7 @@ let duneData = fetch('https://www.omdbapi.com/?i=tt1160419&apikey=e2480ab6')
 let jokerData = fetch('https://www.omdbapi.com/?i=tt7286456&apikey=e2480ab6')
 let halloweenKillsData = fetch('https://www.omdbapi.com/?i=tt10665338&apikey=e2480ab6')
 
+// Delete unnecessary movies
 
 
 
@@ -26,7 +27,7 @@ $(document).ready(function () {
 		$('#enter').css('display', 'none') // removing landing page content after click event
 		$('#loading').css('visibility', 'visible') // displaying "loading" animation after click event
 		
-		// Setting a timeout hanlder for fetchAPI request to make page use the "loading" animation
+		// Setting a timeout handler for fetchAPI request to make page use the "loading" animation
 		setTimeout(function () {
 			
 			getGlitchMovies
@@ -36,8 +37,6 @@ $(document).ready(function () {
 					console.log(movies)
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
-					
-					// Delete unnecessary movies
 					function deleteMovie(id) {
 						let options = {
 							method: 'DELETE',
@@ -48,18 +47,6 @@ $(document).ready(function () {
 						fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
 							.then((response) => response.json())
 					}
-					deleteMovie(5)
-					deleteMovie(6)
-					deleteMovie(7)
-					deleteMovie(8)
-					deleteMovie(9)
-					deleteMovie(10)
-					deleteMovie(11)
-					deleteMovie(12)
-					deleteMovie(13)
-					deleteMovie(14)
-					deleteMovie(15)
-					deleteMovie(16)
 					
 					var card = '';
 					for (let i = 0; i < movies.length; i++) {
@@ -69,6 +56,8 @@ $(document).ready(function () {
 						let rated = movies[i].rating;
 						let releaseYear = movies[i].year;
 						let moviePoster = movies[i].poster;
+						let movieID = movies[i].id;
+						// console.log(movieID)
 						
 						card += `
 						<div class="card-deck">
@@ -103,12 +92,18 @@ $(document).ready(function () {
 										</p>
 									</li>
 									</ul>
+									<div type="submit" id="delete" class="btn btn-sm btn-warning" data-id="${movieID}"><i class="bi bi-trash-fill"></i></div>
 								</div>
 							</div>
 						</div>
 					`
-					}
 					
+					}
+					$('#delete').click(function (e) {
+						e.preventDefault();
+						var id = $(this).data("id")
+						deleteMovie(id)
+					})
 					$('#movieWatchlist').html(card)
 				})
 				.then(function () {
@@ -137,7 +132,7 @@ $(document).ready(function () {
 									.then((response) => console.log(response.json()))
 									
 							})
-						$('#movieWatchlist').location.reload();
+						// $('#movieWatchlist').location.reload();
 							
 					})
 				})
