@@ -1,5 +1,5 @@
 const omdbKey = 'e2480ab6'
-
+// const updateMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
 const getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
 $('#myModal').on('shown.bs.modal', function () {
 	$('#myInput').trigger('focus')
@@ -12,7 +12,83 @@ let duneData = fetch('https://www.omdbapi.com/?i=tt1160419&apikey=e2480ab6')
 let jokerData = fetch('https://www.omdbapi.com/?i=tt7286456&apikey=e2480ab6')
 let halloweenKillsData = fetch('https://www.omdbapi.com/?i=tt10665338&apikey=e2480ab6')
 
-// Delete unnecessary movies
+function renderNewMovies() {
+	fetch('https://adamina-jackie-cinema.glitch.me/movies')
+		.then((response) => response.json())
+		.then((movies) => {
+			
+			var card = '';
+			for (let i = 0; i < movies.length; i++) {
+				
+				let title = movies[i].title;
+				let director = movies[i].director;
+				let rated = movies[i].rating;
+				let releaseYear = movies[i].year;
+				let moviePoster = movies[i].poster;
+				let id = movies[i].id;
+				// console.log(movieID)
+				
+				card += `
+						<div class="card-deck">
+							<div class="card m-5 bg-dark text-white">
+							<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
+								<div class="card-body">
+									<ul class="list-unstyled pl-0">
+									<li>
+										<p class="card-text d-flex align-items-center justify-content-start">
+											<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${rated}
+										</p>
+									</li>
+									<li>
+										<p class="card-text" style="font-weight: bold">
+											${title}
+										</p>
+									</li>
+									
+									<li>
+										<p class="card-text">
+											Rated: ${rated}
+										</p>
+									</li>
+									<li>
+										<p class="card-text">
+											Directed by: ${director}
+										</p>
+									</li>
+									<li>
+										<p class="card-text">
+											Year Realeased: ${releaseYear}
+										</p>
+									</li>
+									</ul>
+									<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+								</div>
+							</div>
+						</div>
+					`
+				
+			}
+			console.log(card)
+			$('#movieWatchlist').html(card)
+			function deleteMovie(id) {
+				let options = {
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+				fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
+					.then((response) => console.log(response.json()))
+			}
+			$('.delete').click(function () {
+				var id = $(this).data('id')
+				console.log(id)
+				deleteMovie(id)
+				
+			})
+			
+		})
+}
 
 
 
@@ -83,13 +159,14 @@ $(document).ready(function () {
 										</p>
 									</li>
 									</ul>
-									<div type="submit" id="delete" class="btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+									<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
 								</div>
 							</div>
 						</div>
 					`
 					
 					}
+					$('#movieWatchlist').html(card)
 					function deleteMovie(id) {
 						let options = {
 							method: 'DELETE',
@@ -98,17 +175,16 @@ $(document).ready(function () {
 							}
 						}
 						fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
-							.then((response) => response.json())
+							.then((response) => console.log(response.json()))
 					}
-					$('#delete').click(function (e) {
-						// e.preventDefault();
-						var id = $(this).data("id")
+					$('.delete').click(function () {
+						var id = $(this).data('id')
 						console.log(id)
 						deleteMovie(id)
 					})
-					$('#movieWatchlist').html(card)
+				
 				})
-				.then(function () {
+				// .then(function () {
 					$('#submit-movie-button').click(function (event) {
 						var userMovie = $('#movie-title').val()
 						event.preventDefault();
@@ -130,39 +206,16 @@ $(document).ready(function () {
 									},
 									body: JSON.stringify(postTheseMovies),
 								};
-								fetch('https://adamina-jackie-cinema.glitch.me/movies', options)
-									.then((response) => console.log(response.json()))
-									
-							})
-						// $('#movieWatchlist').location.reload();
+								
+								fetch('https://adamina-jackie-cinema.glitch.me/movies', options);
+								setTimeout(function(){
+								
+									renderNewMovies()}, 1000)
+								
 							
 					})
 				})
-
-
 			
-			//const blogPost = {title: 'Ajax Requests', body: 'Are a fun way to use JS!'};
-			// const url = '/posts';
-			// const options = {
-			//     method: 'POST',
-			//     headers: {
-			//         'Content-Type': 'application/json',
-			//     },
-			//     body: JSON.stringify(blogPost),
-			// };
-			// fetch(url, options)
-			//     .then(/* post was created successfully */)
-			//     .catch(/* handle errors */);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-
 			// API request for recommended movie section
 			Promise.all([interstellarData, duneData, jokerData, halloweenKillsData])
 				.then((responses) => Promise.all(responses.map((response) => response.json())))
