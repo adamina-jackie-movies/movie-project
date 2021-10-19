@@ -12,6 +12,7 @@ let duneData = fetch('https://www.omdbapi.com/?i=tt1160419&apikey=e2480ab6')
 let jokerData = fetch('https://www.omdbapi.com/?i=tt7286456&apikey=e2480ab6')
 let halloweenKillsData = fetch('https://www.omdbapi.com/?i=tt10665338&apikey=e2480ab6')
 
+// Render new movies function for adding and deleting
 function renderNewMovies() {
 	fetch('https://adamina-jackie-cinema.glitch.me/movies')
 		.then((response) => response.json())
@@ -31,7 +32,7 @@ function renderNewMovies() {
 				card += `
 						<div class="card-deck">
 							<div class="card m-5 bg-dark text-white">
-							<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
+							<img src="${moviePoster}" alt="poster" class="card-top">
 								<div class="card-body">
 									<ul class="list-unstyled pl-0">
 									<li>
@@ -95,13 +96,11 @@ function renderNewMovies() {
 
 
 
-
-
 $(document).ready(function () {
 	$('#add-movie-img').css('visibility', 'hidden')
 	$('#add-movie-button').css('visibility', 'hidden')
-	$('#staff-selection-header').css('visibility', 'hidden')
-	$('#watch-list-header').css('visibility', 'hidden')
+	$('#staff-selection-header').css('display', 'none')
+	$('#watch-list-header').css('display', 'none')
 	$('#enter').click(function (event) {
 		event.preventDefault();
 		$('body').css('background-image', 'none') // removing landing page content after click event
@@ -118,8 +117,10 @@ $(document).ready(function () {
 					console.log(movies)
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
-					$('#staff-selection-header').css('visibility', 'visible')
-					$('#watch-list-header').css('visibility', 'visible')
+					$('#staff-selection-header').css('display', 'contents')
+					$('#watch-list-header').css('display', 'contents')
+					$('body').css('background-color', 'black')
+					$('h1').css('color', 'white').css('text-align', 'center')
 					
 					
 					var card = '';
@@ -136,7 +137,7 @@ $(document).ready(function () {
 						card += `
 						<div class="card-deck">
 							<div class="card m-5 bg-dark text-white">
-							<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
+							<img src="${moviePoster}" alt="poster" class="card-top">
 								<div class="card-body">
 									<ul class="list-unstyled pl-0">
 									<li>
@@ -228,7 +229,7 @@ $(document).ready(function () {
 				})
 			
 			// API request for recommended movie section
-			Promise.all([interstellarData, duneData, jokerData, halloweenKillsData])
+			Promise.all([interstellarData, duneData, jokerData, adamsFamilyData, halloweenKillsData])
 				.then((responses) => Promise.all(responses.map((response) => response.json())))
 				.then((parsedMovies) => {
 					console.log(parsedMovies)
@@ -247,7 +248,7 @@ $(document).ready(function () {
 						card += `
 							<div class="card-deck">
 								<div class="card m-5 bg-dark text-white">
-								<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
+								<img src="${moviePoster}" alt="poster" class="card-top">
 								<div class="card-body">
 									<ul class="list-unstyled pl-0">
 									<li>
@@ -280,10 +281,9 @@ $(document).ready(function () {
 								</div>
 								</div>
 							</div>
-							
 						`
 					}
-					$('.recommendedMovies').html(card)
+					$('#recommendedMovies').html(card)
 					
 				})
 		}, 1500)
