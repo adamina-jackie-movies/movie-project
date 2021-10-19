@@ -37,16 +37,7 @@ $(document).ready(function () {
 					console.log(movies)
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
-					function deleteMovie(id) {
-						let options = {
-							method: 'DELETE',
-							headers: {
-								'Content-Type': 'application/json'
-							}
-						}
-						fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
-							.then((response) => response.json())
-					}
+					
 					
 					var card = '';
 					for (let i = 0; i < movies.length; i++) {
@@ -56,7 +47,7 @@ $(document).ready(function () {
 						let rated = movies[i].rating;
 						let releaseYear = movies[i].year;
 						let moviePoster = movies[i].poster;
-						let movieID = movies[i].id;
+						let id = movies[i].id;
 						// console.log(movieID)
 						
 						card += `
@@ -92,16 +83,27 @@ $(document).ready(function () {
 										</p>
 									</li>
 									</ul>
-									<div type="submit" id="delete" class="btn btn-sm btn-warning" data-id="${movieID}"><i class="bi bi-trash-fill"></i></div>
+									<div type="submit" id="delete" class="btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
 								</div>
 							</div>
 						</div>
 					`
 					
 					}
+					function deleteMovie(id) {
+						let options = {
+							method: 'DELETE',
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}
+						fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
+							.then((response) => response.json())
+					}
 					$('#delete').click(function (e) {
-						e.preventDefault();
+						// e.preventDefault();
 						var id = $(this).data("id")
+						console.log(id)
 						deleteMovie(id)
 					})
 					$('#movieWatchlist').html(card)
@@ -211,85 +213,13 @@ $(document).ready(function () {
 										</p>
 									</li>
 									</ul>
-										
-									
 								</div>
 								</div>
-								</div>
+							</div>
 							
-						
-						
 						`
 					}
 					$('.recommendedMovies').html(card)
-
-					
-					// creating watchlist from database information
-					
-					
-					
-					// //Creating add a movie click event listener
-					// $('#submit-movie-button').click(function(event){
-					// 	event.preventDefault();
-					//
-					// var userMovie = $('#movie-title').val()
-					//
-					//
-					// //Taking users input for movie search
-					// 	fetch(`https://www.omdbapi.com/?t=${userMovie}/&apikey=e2480ab6`)
-					// 		.then((response)=> response.json())
-					// 		.then((addedMovie)=> {
-					// 			console.log(addedMovie);
-					// 			addedMovie.id = 7
-					// 			console.log(addedMovie)
-					//
-					// 			var card = ''
-					// 			let imdbRating = addedMovie.imdbRating
-					// 			let title = addedMovie.Title
-					// 			let director = addedMovie.Director
-					// 			let rated = addedMovie.Rated
-					// 			let releasedYear = addedMovie.Year
-					// 			let moviePoster = addedMovie.Poster
-					//
-					// 			card += `
-					// 			<div class="card m-5 bg-dark text-white">
-					// 				<img src="${moviePoster}" width="300" height="445" alt="" class="card-top">
-					// 				<div class="card-body">
-					// 					<ul class="list-unstyled pl-0">
-					// 						<li>
-					// 							<p class="card-text d-flex align-items-center justify-content-start">
-					// 								<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${imdbRating}
-					// 							</p>
-					// 						</li>
-					// 						<li>
-					// 							<p class="card-text" style="font-weight: bold">
-					// 								${title}
-					// 							</p>
-					// 						</li>
-					//
-					// 						<li>
-					// 							<p class="card-text">
-					// 								Rated: ${rated}
-					// 							</p>
-					// 						</li>
-					// 						<li>
-					// 							<p class="card-text">
-					// 								Directed by: ${director}
-					// 							</p>
-					// 						</li>
-					// 						<li>
-					// 							<p class="card-text">
-					// 								Year Realeased: ${releasedYear}
-					// 							</p>
-					// 						</li>
-					// 					</ul>
-					// 				</div>
-					// 			</div>
-					// 			`
-					// 			$("#movieWatchlist").html(card)
-					// 		})
-					//
-					// })
 					
 				})
 		}, 1500)
