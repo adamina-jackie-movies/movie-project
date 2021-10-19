@@ -79,6 +79,9 @@ function renderNewMovies() {
 				}
 				fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
 					.then((response) => console.log(response.json()))
+				setTimeout(function(){
+					
+					renderNewMovies()}, 1000)
 			}
 			$('.delete').click(function () {
 				var id = $(this).data('id')
@@ -176,6 +179,10 @@ $(document).ready(function () {
 						}
 						fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
 							.then((response) => console.log(response.json()))
+						
+						setTimeout(function(){
+							
+							renderNewMovies()}, 1000)
 					}
 					$('.delete').click(function () {
 						var id = $(this).data('id')
