@@ -1,7 +1,7 @@
 /*Landing page css*/
 body {
 	background-image: url("/images/movieprojectbg2.png");
-	background-size: cover;
+	background-size: auto;
 	background-repeat: no-repeat;
 	/*max-width: 90%;*/
 }
@@ -61,6 +61,7 @@ h1 {
 }
 .card-text {
 	font-size: 14px;
+	flex-wrap: nowrap;
 }
 .card-top {
 	height: 300px;
