@@ -155,6 +155,8 @@ $(document).ready(function () {
 	$('#staff-selection-header').css('display', 'none')
 	$('#watch-list-header').css('display', 'none')
 	$('.jumbotron').css('visibility', 'hidden')
+	$('.footer').css('visibility', 'hidden')
+	$('hr').css('visibility', 'hidden')
 	
 	// clicking enter starts takes you to the movies
 	$('#enter').click(function (event) {
@@ -179,6 +181,8 @@ $(document).ready(function () {
 					$('#staff-selection-header').css('display', 'contents')
 					$('#watch-list-header').css('display', 'contents')
 					$('.jumbotron').css('visibility', 'visible')
+					$('.footer').css('visibility', 'visible')
+					$('hr').css('visibility', 'visible')
 					$('body').css('background-color', 'black')
 					$('h1').css('color', 'white').css('text-align', 'center')
 					
