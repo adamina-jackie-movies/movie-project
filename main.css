@@ -22,6 +22,15 @@ h1 {
 	letter-spacing: 5px;
 }
 
+.jumbotron {
+	background-color: transparent;
+}
+#jumbotron {
+	color: white;
+	font-size: 160px;
+	letter-spacing: 10px;
+
+}
 /*Loading image*/
 .loader {
 	visibility: hidden;

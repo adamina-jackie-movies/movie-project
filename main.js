@@ -152,6 +152,7 @@ $(document).ready(function () {
 	$('#add-movie-button').css('visibility', 'hidden')
 	$('#staff-selection-header').css('display', 'none')
 	$('#watch-list-header').css('display', 'none')
+	$('.jumbotron').css('visibility', 'hidden')
 	$('#enter').click(function (event) {
 		event.preventDefault();
 		$('body').css('background-image', 'none') // removing landing page content after click event
@@ -170,6 +171,7 @@ $(document).ready(function () {
 					$('#add-movie-img').css('visibility', 'visible')
 					$('#staff-selection-header').css('display', 'contents')
 					$('#watch-list-header').css('display', 'contents')
+					$('.jumbotron').css('visibility', 'visible')
 					$('body').css('background-color', 'black')
 					$('h1').css('color', 'white').css('text-align', 'center')
 					
