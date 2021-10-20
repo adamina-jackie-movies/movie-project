@@ -84,8 +84,8 @@ function renderNewMovies() {
 						      <div class="modal-body">
 						        <form action="">
 									<div class="form-group">
-										<label for="movie-title">Your Rating</label>
-										<input type="text" class="form-control" id="movie-title" placeholder="Enter a rating 1-10..">
+										<label for="movie-rating">Your Rating</label>
+										<input type="text" class="form-control" id="movie-rating" placeholder="Enter a rating 1-10..">
 									</div>
 								</form>
 						      </div>
@@ -99,7 +99,7 @@ function renderNewMovies() {
 					`
 				
 			}
-			console.log(card)
+			// console.log(card)
 			$('#movieWatchlist').html(card)
 			function deleteMovie(id) {
 				let options = {
@@ -112,7 +112,7 @@ function renderNewMovies() {
 					.then((response) => console.log(response.json()))
 				setTimeout(function(){
 					
-					renderNewMovies()}, 1000)
+					renderNewMovies()}, 600)
 			}
 			$('.delete').click(function () {
 				var id = $(this).data('id')
@@ -219,8 +219,8 @@ $(document).ready(function () {
 						      <div class="modal-body">
 						      <form action="">
 									<div class="form-group">
-										<label for="movie-title">Your Rating</label>
-										<input type="text" class="form-control" id="movie-title" placeholder="Enter a rating 1-10..">
+										<label for="movie-rating">Your Rating</label>
+										<input type="text" class="form-control" id="movie-rating" placeholder="Enter a rating 1-10..">
 									</div>
 								</form>
 						      </div>
@@ -247,7 +247,7 @@ $(document).ready(function () {
 						
 						setTimeout(function(){
 							
-							renderNewMovies()}, 1000)
+							renderNewMovies()}, 500)
 					}
 					$('.delete').click(function () {
 						var id = $(this).data('id')
@@ -256,13 +256,15 @@ $(document).ready(function () {
 					})
 				
 				})
-				// .then(function () {
+				.then(function () {
 					$('#submit-movie-button').click(function (event) {
-						var userMovie = $('#movie-title').val()
 						event.preventDefault();
+						var userMovie = $('#movie-title').val()
 						fetch(`https://www.omdbapi.com/?t=${userMovie}/&apikey=e2480ab6`)
 							.then((response) => response.json())
 							.then((addedMovie) => {
+								console.log(userMovie)
+								console.log(addedMovie)
 								let postTheseMovies = {};
 								postTheseMovies.rating = addedMovie.imdbRating;
 								postTheseMovies.title = addedMovie.Title;
@@ -279,15 +281,17 @@ $(document).ready(function () {
 									body: JSON.stringify(postTheseMovies),
 								};
 								
-								fetch('https://adamina-jackie-cinema.glitch.me/movies', options);
-								setTimeout(function(){
+								fetch('https://adamina-jackie-cinema.glitch.me/movies', options)
+								setTimeout(function () {
+									
+									renderNewMovies()
+								}, 600)
 								
-									renderNewMovies()}, 1000)
 								
-							
+							})
+						
 					})
 				})
-			
 			// API request for recommended movie section
 			Promise.all([interstellarData, duneData, jokerData, adamsFamilyData, halloweenKillsData])
 				.then((responses) => Promise.all(responses.map((response) => response.json())))
@@ -346,7 +350,7 @@ $(document).ready(function () {
 					$('#recommendedMovies').html(card)
 					
 				})
-		}, 1500)
+				}, 1000)
 		
 		
 	})

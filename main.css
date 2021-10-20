@@ -4,6 +4,7 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	/*max-width: 90%;*/
+	margin: 2em;
 }
 
 .enter-button {
