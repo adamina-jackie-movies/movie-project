@@ -1,6 +1,6 @@
-const omdbKey = 'e2480ab6'
-// const updateMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
-const getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
+let omdbKey = 'e2480ab6'
+
+let getGlitchMovies = fetch('https://adamina-jackie-cinema.glitch.me/movies');
 $('#myModal').on('shown.bs.modal', function () {
 	$('#myInput').trigger('focus')
 })
@@ -115,6 +115,7 @@ function renderNewMovies() {
 		})
 }
 
+// delete movies function
 function deleteMovie(id) {
 	let options = {
 		method: 'DELETE',
@@ -131,7 +132,7 @@ function deleteMovie(id) {
 }
 
 // Still working on edit rating functionality
-function editRating(ratingObj) {
+function editRating(id, ratingObj) {
 	let options = {
 		method: 'PATCH',
 		headers: {
@@ -139,20 +140,23 @@ function editRating(ratingObj) {
 		},
 		body: JSON.stringify(ratingObj)
 	}
-	fetch(`https://adamina-jackie-cinema.glitch.me/movies/${ratingObj.id}`, options)
+	fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
 		.then((response) => response.json())
+		.then((patch) => console.log(patch))
 	setTimeout(function(){
 		
 		renderNewMovies()}, 500)
 }
 
-
+// Code to run when document is ready
 $(document).ready(function () {
 	$('#add-movie-img').css('visibility', 'hidden')
 	$('#add-movie-button').css('visibility', 'hidden')
 	$('#staff-selection-header').css('display', 'none')
 	$('#watch-list-header').css('display', 'none')
 	$('.jumbotron').css('visibility', 'hidden')
+	
+	// clicking enter starts takes you to the movies
 	$('#enter').click(function (event) {
 		event.preventDefault();
 		$('body').css('background-image', 'none') // removing landing page content after click event
@@ -162,11 +166,14 @@ $(document).ready(function () {
 		// Setting a timeout handler for fetchAPI request to make page use the "loading" animation
 		setTimeout(function () {
 			
+			// intial request for glitch movie database
 			getGlitchMovies
 				.then((response) => response.json())
 				.then((movies) => {
 					$('#loading').css('display', 'none') // removing "loading" animation after promise has been fulfilled
 					console.log(movies)
+					
+					// making movie database content visible after exiting the "loading" animation
 					$('#add-movie-button').css('visibility', 'visible')
 					$('#add-movie-img').css('visibility', 'visible')
 					$('#staff-selection-header').css('display', 'contents')
@@ -175,7 +182,7 @@ $(document).ready(function () {
 					$('body').css('background-color', 'black')
 					$('h1').css('color', 'white').css('text-align', 'center')
 					
-					
+					// for loop to render movie database on screen
 					var card = '';
 					for (let i = 0; i < movies.length; i++) {
 						
@@ -230,6 +237,7 @@ $(document).ready(function () {
 							</div>
 						</div>
 						
+						<!--modal for edit rating button-->
 						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  <div class="modal-dialog">
 						    <div class="modal-content">
@@ -258,30 +266,39 @@ $(document).ready(function () {
 					
 					}
 					$('#movieWatchlist').html(card)
+					
+					// delete movie from watchlist click event
 					$('.delete').click(function () {
 						var id = $(this).data('id')
 						console.log(id)
 						deleteMovie(id)
 					})
+					
+					// edit movie rating from watchlist click event
 					$('.edit-rating').click(function () {
 						let ratingObj = {};
-						let id = $(this).attr("data-id")
+						var id = $(this).data('id')
 						ratingObj.rating = $('#movie-rating').val()
 						console.log(ratingObj)
-						editRating(ratingObj)
+						console.log(id)
+						editRating(id, ratingObj)
 					})
 					
 				
 				})
+				// add movie section
 				.then(function () {
 					$('#submit-movie-button').click(function (event) {
 						event.preventDefault();
+						// used omdb api to get movie data from imdb by using the user input
 						var userMovie = $('#movie-title').val()
 						fetch(`https://www.omdbapi.com/?t=${userMovie}/&apikey=e2480ab6`)
 							.then((response) => response.json())
 							.then((addedMovie) => {
 								console.log(userMovie)
 								console.log(addedMovie)
+								
+								// put data from user search into an object to post to glitch server movies database
 								let postTheseMovies = {};
 								postTheseMovies.rating = addedMovie.imdbRating;
 								postTheseMovies.title = addedMovie.Title;
@@ -290,6 +307,7 @@ $(document).ready(function () {
 								postTheseMovies.poster = addedMovie.Poster;
 								console.log(postTheseMovies)
 								
+								// 'POST'ing object to glitch movies to render on website
 								let options = {
 									method: 'POST',
 									headers: {
@@ -299,6 +317,8 @@ $(document).ready(function () {
 								};
 								
 								fetch('https://adamina-jackie-cinema.glitch.me/movies', options)
+								
+								// used timeout function to make movies update on screen without refreshing the page
 								setTimeout(function () {
 									
 									renderNewMovies()
@@ -309,13 +329,13 @@ $(document).ready(function () {
 						
 					})
 				})
-			// API request for recommended movie section
+			// API request for staff selection movie section
 			Promise.all([interstellarData, duneData, jokerData, adamsFamilyData, halloweenKillsData])
 				.then((responses) => Promise.all(responses.map((response) => response.json())))
 				.then((parsedMovies) => {
 					console.log(parsedMovies)
 					
-			// recommendedMovie for loop
+			// recommendedMovie for loop to render staff selection movie cards
 					var card = '';
 					for(var i = 0; i < parsedMovies.length; i++) {
 						// iterate through parsedMovies to create card deck for recommended movies section
