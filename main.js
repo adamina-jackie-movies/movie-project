@@ -62,9 +62,39 @@ function renderNewMovies() {
 										</p>
 									</li>
 									</ul>
-									<div type="submit" class="delete btn btn-sm btn-warning flex-nowrap" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+									<div class="container d-flex justify-content-between">
+										<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+										<button type="button" class="edit btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal" data-id="${id}">
+										  <i class="bi bi-pencil-square"></i>
+										</button>
+									</div>
 								</div>
 							</div>
+						</div>
+						
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">Edit Rating</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						        <form action="">
+									<div class="form-group">
+										<label for="movie-title">Your Rating</label>
+										<input type="text" class="form-control" id="movie-title" placeholder="Enter a rating 1-10..">
+									</div>
+								</form>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-success" data-dismiss="modal">Save changes</button>
+						      </div>
+						    </div>
+						  </div>
 						</div>
 					`
 				
@@ -167,9 +197,39 @@ $(document).ready(function () {
 										</p>
 									</li>
 									</ul>
-									<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+									<div class="container d-flex justify-content-between">
+										<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+										<button type="button" class="edit btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal" data-id="${id}">
+										  <i class="bi bi-pencil-square"></i>
+										</button>
+									</div>
 								</div>
 							</div>
+						</div>
+						
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">Edit Rating</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      <form action="">
+									<div class="form-group">
+										<label for="movie-title">Your Rating</label>
+										<input type="text" class="form-control" id="movie-title" placeholder="Enter a rating 1-10..">
+									</div>
+								</form>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-success" data-dismiss="modal">Save changes</button>
+						      </div>
+						    </div>
+						  </div>
 						</div>
 					`
 					
