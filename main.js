@@ -62,7 +62,7 @@ function renderNewMovies() {
 										</p>
 									</li>
 									</ul>
-									<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
+									<div type="submit" class="delete btn btn-sm btn-warning flex-nowrap" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
 								</div>
 							</div>
 						</div>
