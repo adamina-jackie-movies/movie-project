@@ -5,7 +5,7 @@ $('#myModal').on('shown.bs.modal', function () {
 	$('#myInput').trigger('focus')
 })
 
-// Recommended movies variables
+// staff selection movies variables
 let interstellarData = fetch('https://www.omdbapi.com/?i=tt0816692&apikey=e2480ab6')
 let adamsFamilyData = fetch('https://www.omdbapi.com/?i=tt11125620&apikey=e2480ab6')
 let duneData = fetch('https://www.omdbapi.com/?i=tt1160419&apikey=e2480ab6')
@@ -58,7 +58,7 @@ function renderNewMovies() {
 									</li>
 									<li>
 										<p class="card-text">
-											Year Realeased: ${releaseYear}
+											Year Released: ${releaseYear}
 										</p>
 									</li>
 									</ul>
@@ -227,7 +227,7 @@ $(document).ready(function () {
 									</li>
 									<li>
 										<p class="card-text">
-											Year Realeased: ${releaseYear}
+											Year Released: ${releaseYear}
 										</p>
 									</li>
 									</ul>
@@ -379,7 +379,7 @@ $(document).ready(function () {
 									</li>
 									<li>
 										<p class="card-text">
-											Year Realeased: ${releasedYear}
+											Year Released: ${releasedYear}
 										</p>
 									</li>
 									</ul>
