@@ -227,7 +227,7 @@ $(document).ready(function () {
 									</li>
 									<li>
 										<p class="card-text">
-											Year Realeased: ${releaseYear}
+											Year Released: ${releaseYear}
 										</p>
 									</li>
 									</ul>
