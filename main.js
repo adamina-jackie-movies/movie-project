@@ -64,7 +64,7 @@ function renderNewMovies() {
 									</ul>
 									<div class="container d-flex justify-content-between">
 										<div type="submit" class="delete btn btn-sm btn-warning" data-id="${id}"><i class="bi bi-trash-fill"></i></div>
-										<button type="button" class="edit btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal" data-id="${id}">
+										<button type="submit" class="edit btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal" data-id="${id}">
 										  <i class="bi bi-pencil-square"></i>
 										</button>
 									</div>
@@ -85,13 +85,13 @@ function renderNewMovies() {
 						        <form action="">
 									<div class="form-group">
 										<label for="movie-rating">Your Rating</label>
-										<input type="text" class="form-control" id="movie-rating" placeholder="Enter a rating 1-10..">
+										<input type="text" class="form-control" id="movie-rating" placeholder="Enter a rating 1-10.."> <!--Input for Rating-->
 									</div>
 								</form>
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-success" data-dismiss="modal">Save changes</button>
+						        <button type="submit" class="edit-rating btn btn-success" data-dismiss="modal" data-id="${id}">Save changes</button>
 						      </div>
 						    </div>
 						  </div>
@@ -101,29 +101,50 @@ function renderNewMovies() {
 			}
 			// console.log(card)
 			$('#movieWatchlist').html(card)
-			function deleteMovie(id) {
-				let options = {
-					method: 'DELETE',
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}
-				fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
-					.then((response) => console.log(response.json()))
-				setTimeout(function(){
-					
-					renderNewMovies()}, 600)
-			}
 			$('.delete').click(function () {
 				var id = $(this).data('id')
 				console.log(id)
 				deleteMovie(id)
-				
 			})
-			
+			$('.edit-rating').click(function () {
+				let ratingObj = {};
+				let id = $(this).attr("data-id")
+				ratingObj.rating = $('#movie-rating').val()
+				editRating(ratingObj)
+			})
 		})
 }
 
+function deleteMovie(id) {
+	let options = {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}
+	fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
+		.then((response) => console.log(response.json()))
+	
+	setTimeout(function(){
+		
+		renderNewMovies()}, 500)
+}
+
+// Still working on edit rating functionality
+function editRating(ratingObj) {
+	let options = {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(ratingObj)
+	}
+	fetch(`https://adamina-jackie-cinema.glitch.me/movies/${ratingObj.id}`, options)
+		.then((response) => response.json())
+	setTimeout(function(){
+		
+		renderNewMovies()}, 500)
+}
 
 
 $(document).ready(function () {
@@ -131,6 +152,7 @@ $(document).ready(function () {
 	$('#add-movie-button').css('visibility', 'hidden')
 	$('#staff-selection-header').css('display', 'none')
 	$('#watch-list-header').css('display', 'none')
+	$('.jumbotron').css('visibility', 'hidden')
 	$('#enter').click(function (event) {
 		event.preventDefault();
 		$('body').css('background-image', 'none') // removing landing page content after click event
@@ -149,6 +171,7 @@ $(document).ready(function () {
 					$('#add-movie-img').css('visibility', 'visible')
 					$('#staff-selection-header').css('display', 'contents')
 					$('#watch-list-header').css('display', 'contents')
+					$('.jumbotron').css('visibility', 'visible')
 					$('body').css('background-color', 'black')
 					$('h1').css('color', 'white').css('text-align', 'center')
 					
@@ -226,7 +249,7 @@ $(document).ready(function () {
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-success" data-dismiss="modal">Save changes</button>
+						        <button type="button" class="edit-rating btn btn-success" data-dismiss="modal" data-id="${id}">Save changes</button>
 						      </div>
 						    </div>
 						  </div>
@@ -235,25 +258,19 @@ $(document).ready(function () {
 					
 					}
 					$('#movieWatchlist').html(card)
-					function deleteMovie(id) {
-						let options = {
-							method: 'DELETE',
-							headers: {
-								'Content-Type': 'application/json'
-							}
-						}
-						fetch(`https://adamina-jackie-cinema.glitch.me/movies/${id}`, options)
-							.then((response) => console.log(response.json()))
-						
-						setTimeout(function(){
-							
-							renderNewMovies()}, 500)
-					}
 					$('.delete').click(function () {
 						var id = $(this).data('id')
 						console.log(id)
 						deleteMovie(id)
 					})
+					$('.edit-rating').click(function () {
+						let ratingObj = {};
+						let id = $(this).attr("data-id")
+						ratingObj.rating = $('#movie-rating').val()
+						console.log(ratingObj)
+						editRating(ratingObj)
+					})
+					
 				
 				})
 				.then(function () {
