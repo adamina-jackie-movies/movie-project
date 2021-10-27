@@ -37,7 +37,7 @@ function renderNewMovies() {
 									<ul class="list-unstyled pl-0">
 									<li>
 										<p class="card-text d-flex align-items-center justify-content-start">
-											<img src="../images/star.png" class="mr-1" width="16" height="16" alt="star"> ${rated}
+											<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${rated}
 										</p>
 									</li>
 									<li>
@@ -206,7 +206,7 @@ $(document).ready(function () {
 									<ul class="list-unstyled pl-0">
 									<li>
 										<p class="card-text d-flex align-items-center justify-content-start">
-											<img src="../images/star.png" class="mr-1" width="16" height="16" alt="star"> ${rated}
+											<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${rated}
 										</p>
 									</li>
 									<li>
@@ -358,7 +358,7 @@ $(document).ready(function () {
 									<ul class="list-unstyled pl-0">
 									<li>
 										<p class="card-text d-flex align-items-center justify-content-start">
-											<img src="../images/star.png" class="mr-1" width="16" height="16" alt="star"> ${imdbRating}
+											<img src="images/star.png" class="mr-1" width="16" height="16" alt="star"> ${imdbRating}
 										</p>
 									</li>
 									<li>
